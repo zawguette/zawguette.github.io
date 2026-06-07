@@ -70,7 +70,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            padding-top: 5vh;
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
@@ -84,12 +85,12 @@
         }
 
         .jeb-logo {
-            font-size: clamp(6rem, 18vw, 14rem);
+            font-size: clamp(4rem, 12vw, 8rem);
             font-weight: 900;
             letter-spacing: -2px;
             color: #1a1a1a;
             line-height: 0.8;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
             text-align: center;
             user-select: none;
         }
@@ -97,15 +98,18 @@
         .info-card {
             border: 3px solid #1a1a1a;
             background: #ffffff;
-            padding: 14px 60px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            padding: 25px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.6;
+            letter-spacing: 0.5px;
             border-radius: 8px;
             box-shadow: 6px 6px 0px #1a1a1a;
             cursor: pointer;
-            transition: transform 0.2s;
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .info-card:hover {
@@ -150,6 +154,7 @@
             text-align: center;
             max-width: 450px;
             width: 90%;
+            margin-top: 5vh;
         }
 
         .contact-card h2 {
@@ -174,9 +179,7 @@
         <section id="homePage" class="page-view active">
             <h1 class="jeb-logo">Jeb</h1>
             <div class="info-card" id="infoBtn">
-                HEYHEYHEY im jeb!1!
-I'll state it again IM JEB, or call me Zawg
-I'm an animator on Roblox and started in 2022.I started animating because I was bad at drawing and took me and my belongings to another station and departed. My contacts are on the other page, area, whatever you wanna call it. Hit me up ;p
+                HEYHEYHEY im jeb!1! I'll state it again IM JEB, or call me Zawg I'm an animator on Roblox and started in 2022. I started animating because I was bad at drawing and took me and my belongings to another station and departed. My contacts are on the other page, area, whatever you wanna call it. Hit me up ;p
             </div>
 
             <div class="spinning-container">
