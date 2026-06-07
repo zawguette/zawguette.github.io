@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeb's Site</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f9fc;
+            color: #1a1a1a;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 30px 0;
+            z-index: 10;
+        }
+
+        .cycle-nav-btn {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: none;
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cycle-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background-color: #333333;
+        }
+
+        .cycle-nav-btn:active {
+            transform: translateY(1px);
+        }
+
+        .page-wrapper {
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
+        }
+
+        .page-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+        }
+
+        .page-view.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .jeb-logo {
+            font-size: clamp(6rem, 18vw, 14rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            color: #1a1a1a;
+            line-height: 0.8;
+            margin-bottom: 15px;
+            text-align: center;
+            user-select: none;
+        }
+
+        .info-card {
+            border: 3px solid #1a1a1a;
+            background: #ffffff;
+            padding: 14px 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            box-shadow: 6px 6px 0px #1a1a1a;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .info-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px #1a1a1a;
+        }
+
+        .spinning-container {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            width: 140px;
+            height: 140px;
+            background: #ffffff;
+            border: 3px solid #1a1a1a;
+            border-radius: 16px;
+            padding: 10px;
+            box-shadow: 4px 4px 0px #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: continuousSpin 8s linear infinite;
+        }
+
+        .spinning-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes continuousSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-card {
+            background: #ffffff;
+            border: 3px solid #1a1a1a;
+            border-radius: 16px;
+            padding: 40px 60px;
+            box-shadow: 8px 8px 0px #1a1a1a;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .contact-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-card p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button id="togglePageBtn" class="cycle-nav-btn">Contact</button>
+    </header>
+
+    <main class="page-wrapper">
+
+        <section id="homePage" class="page-view active">
+            <h1 class="jeb-logo">Jeb</h1>
+            <div class="info-card" id="infoBtn">
+                HEYHEYHEY im jeb!1!
+I'll state it again IM JEB, or call me Zawg
+I'm an animator on Roblox and started in 2022.I started animating because I was bad at drawing and took me and my belongings to another station and departed. My contacts are on the other page, area, whatever you wanna call it. Hit me up ;p
+            </div>
+
+            <div class="spinning-container">
+                <img src="sakaki.png" alt="Sakaki" class="spinning-image" id="sakakiImg" onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
+                <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center;">🌀 Sakaki PNG</span>
+            </div>
+        </section>
+
+        <section id="contactPage" class="page-view">
+            <div class="contact-card">
+                <h2>Get in Touch</h2>
+                <p>This is the contact layout page screen.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const toggleBtn = document.getElementById('togglePageBtn');
+        const homePage = document.getElementById('homePage');
+        const contactPage = document.getElementById('contactPage');
+        const infoBtn = document.getElementById('infoBtn');
+
+        let count = 0;
+
+        infoBtn.addEventListener('click', () => {
+            count++;
+            alert('You clicked the info button ' + count + ' times!');
+        });
+
+        toggleBtn.addEventListener('click', () => {
+            if (homePage.classList.contains('active')) {
+                homePage.classList.remove('active');
+                contactPage.classList.add('active');
+                toggleBtn.textContent = 'Home';
+            } else {
+                contactPage.classList.remove('active');
+                homePage.classList.add('active');
+                toggleBtn.textContent = 'Contact';
+            }
+        });
+    </script>
+</body>
+</html>
