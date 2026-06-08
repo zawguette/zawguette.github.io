@@ -106,10 +106,8 @@
         }
 
         .info-card {
+            position: relative;
             border: 3px solid #1a1a1a;
-            background: rgba(234, 131, 56, 0.35);
-            backdrop-filter: blur(0px);
-            -webkit-backdrop-filter: blur(0px);
             padding: 25px 40px;
             font-size: 1.25rem;
             font-weight: 600;
@@ -124,16 +122,33 @@
             color: #f0f2f5;
             -webkit-text-stroke: 1px #444444;
             text-stroke: 1px #444444;
-            transition: box-shadow 0.2s, backdrop-filter 0.4s ease-out, -webkit-backdrop-filter 0.4s ease-out;
-        }
-
-        .page-view.active .info-card {
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            overflow: hidden;
+            background: transparent;
+            transition: box-shadow 0.2s;
         }
 
         .info-card:hover {
             box-shadow: 8px 8px 0px #1a1a1a;
+        }
+
+        .card-blur-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(234, 131, 56, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+            transition-delay: 0s;
+        }
+
+        .page-view.active .card-blur-bg {
+            opacity: 1;
+            transition-delay: 0.1s;
         }
 
         .spinning-container {
@@ -142,9 +157,6 @@
             left: 40px;
             width: 140px;
             height: 140px;
-            background: rgba(234, 131, 56, 0.35);
-            backdrop-filter: blur(0px);
-            -webkit-backdrop-filter: blur(0px);
             border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 10px;
@@ -153,12 +165,8 @@
             align-items: center;
             justify-content: center;
             z-index: 15;
-            transition: backdrop-filter 0.4s ease-out, -webkit-backdrop-filter 0.4s ease-out;
-        }
-
-        .page-view.active .spinning-container {
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            overflow: hidden;
+            background: transparent;
         }
 
         .spinning-image-wrapper {
@@ -182,9 +190,7 @@
         }
 
         .contact-card {
-            background: rgba(234, 131, 56, 0.35);
-            backdrop-filter: blur(0px);
-            -webkit-backdrop-filter: blur(0px);
+            position: relative;
             border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 40px 60px;
@@ -196,12 +202,8 @@
             color: #f0f2f5;
             -webkit-text-stroke: 1px #444444;
             text-stroke: 1px #444444;
-            transition: backdrop-filter 0.4s ease-out, -webkit-backdrop-filter 0.4s ease-out;
-        }
-
-        .page-view.active .contact-card {
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            overflow: hidden;
+            background: transparent;
         }
 
         .contact-card h2 {
@@ -226,10 +228,12 @@
         <section id="homePage" class="page-view active">
             <h1 class="jeb-logo">Jeb</h1>
             <div class="info-card" id="infoBtn">
+                <div class="card-blur-bg"></div>
                 HEYHEYHEY im jeb!1! I'll state it again IM JEB, or call me Zawg I'm an animator on Roblox and started in 2022. I started animating because I was bad at drawing and took me and my belongings to another station and departed. My contacts are on the other page, area, whatever you wanna call it. Hit me up ;p
             </div>
 
             <div class="spinning-container">
+                <div class="card-blur-bg"></div>
                 <div class="spinning-image-wrapper">
                     <img src="images/sakaki.png" alt="Sakaki" class="spinning-image" id="sakakiImg" onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
                     <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg);">🌀 Sakaki PNG</span>
@@ -239,6 +243,7 @@
 
         <section id="contactPage" class="page-view">
             <div class="contact-card">
+                <div class="card-blur-bg"></div>
                 <h2>Get in Touch</h2>
                 <p>hi im ritsu tainaka</p>
             </div>
