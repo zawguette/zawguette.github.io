@@ -6,4 +6,4 @@ console.log("©
  * Written by [Nizar Bassem] <[nydrago.18@gmail.com / NyDrago]>
  ");
 
-console.log("curious arent you? you should really go to the site nydrago.github.io im the one who made this site")
+console.log("curious arent you? you should really go to the site nydrago.github.io im the one who made this site");
