@@ -26,6 +26,46 @@
             position: relative;
         }
 
+        #site-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(234, 131, 56, 0.2);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
+        }
+
+        #site-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .overlay-text {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #f0f2f5;
+            -webkit-text-stroke: 1.5px #1a1a1a;
+            text-stroke: 1.5px #1a1a1a;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            user-select: none;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
         header {
             width: 100%;
             display: flex;
@@ -228,6 +268,10 @@
 </head>
 <body>
 
+    <div id="site-overlay">
+        <div class="overlay-text">Click to open site!</div>
+    </div>
+
     <div id="yt-player"></div>
 
     <header>
@@ -256,87 +300,3 @@
             <div class="contact-card">
                 <div class="card-blur-bg"></div>
                 <h2>Get in Touch</h2>
-                <p>hi im ritsu tainaka</p>
-            </div>
-        </section>
-
-    </main>
-
-    <script>
-        const toggleBtn = document.getElementById('togglePageBtn');
-        const homePage = document.getElementById('homePage');
-        const contactPage = document.getElementById('contactPage');
-        const infoBtn = document.getElementById('infoBtn');
-        const musicToggleBtn = document.getElementById('musicToggleBtn');
-
-        let count = 0;
-        let player;
-        let isMuted = false;
-
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('yt-player', {
-                height: '1',
-                width: '1',
-                videoId: '_Y0Td1NYvNs',
-                playerVars: {
-                    'autoplay': 1,
-                    'loop': 1,
-                    'playlist': '_Y0Td1NYvNs',
-                    'controls': 0,
-                    'showinfo': 0,
-                    'modestbranding': 1
-                },
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            document.body.addEventListener('click', () => {
-                if (player && typeof player.playVideo === 'function') {
-                    player.playVideo();
-                }
-            }, { once: true });
-        }
-
-        musicToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (!player || typeof player.isMuted !== 'function') return;
-
-            if (isMuted) {
-                player.unMute();
-                player.playVideo();
-                isMuted = false;
-                musicToggleBtn.style.opacity = "1";
-            } else {
-                player.mute();
-                isMuted = true;
-                musicToggleBtn.style.opacity = "0.6";
-            }
-        });
-
-        infoBtn.addEventListener('click', () => {
-            count++;
-            alert('You clicked the info button ' + count + ' times!');
-        });
-
-        toggleBtn.addEventListener('click', () => {
-            if (homePage.classList.contains('active')) {
-                homePage.classList.remove('active');
-                contactPage.classList.add('active');
-                toggleBtn.textContent = 'Home';
-            } else {
-                contactPage.classList.remove('active');
-                homePage.classList.add('active');
-                toggleBtn.textContent = 'Contact';
-            }
-        });
-    </script>
-</body>
-</html>
