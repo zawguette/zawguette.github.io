@@ -99,13 +99,15 @@
             margin-bottom: 50px;
             text-align: center;
             user-select: none;
-            opacity: 0.95;
+            opacity: 1;
             margin-left: 5px;
         }
 
         .info-card {
             border: 3px solid #1a1a1a;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(234, 131, 56, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 25px 40px;
             font-size: 1.1rem;
             font-weight: 600;
@@ -130,11 +132,22 @@
             left: 40px;
             width: 140px;
             height: 140px;
-            background: #ffffff;
+            background: rgba(234, 131, 56, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 10px;
             box-shadow: 4px 4px 0px #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .spinning-image-wrapper {
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -153,7 +166,9 @@
         }
 
         .contact-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(234, 131, 56, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 40px 60px;
@@ -191,8 +206,10 @@
             </div>
 
             <div class="spinning-container">
-                <img src="images/sakaki.png" alt="Sakaki" class="spinning-image" id="sakakiImg" onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
-                <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center;">🌀 Sakaki PNG</span>
+                <div class="spinning-image-wrapper">
+                    <img src="images/sakaki.png" alt="Sakaki" class="spinning-image" id="sakakiImg" onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
+                    <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg);">🌀 Sakaki PNG</span>
+                </div>
             </div>
         </section>
 
@@ -210,25 +227,3 @@
         const homePage = document.getElementById('homePage');
         const contactPage = document.getElementById('contactPage');
         const infoBtn = document.getElementById('infoBtn');
-
-        let count = 0;
-
-        infoBtn.addEventListener('click', () => {
-            count++;
-            alert('You clicked the info button ' + count + ' times!');
-        });
-
-        toggleBtn.addEventListener('click', () => {
-            if (homePage.classList.contains('active')) {
-                homePage.classList.remove('active');
-                contactPage.classList.add('active');
-                toggleBtn.textContent = 'Home';
-            } else {
-                contactPage.classList.remove('active');
-                homePage.classList.add('active');
-                toggleBtn.textContent = 'Contact';
-            }
-        });
-    </script>
-</body>
-</html>
