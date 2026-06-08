@@ -256,7 +256,7 @@
         .contact-card { border: 3px solid #1a1a1a; border-radius: 16px; padding: 35px; box-shadow: 8px 8px 0px #1a1a1a; width: 550px; }
         .redirect-btn { display: block; width: 100%; padding: 18px; background: rgba(26, 26, 26, 0.65); color: #ffffff; border: 2px solid #ffffff; border-radius: 8px; text-align: center; text-decoration: none; margin-bottom: 10px; }
         
-        #yt-player { display: none; }
+        #yt-player { position: absolute; width: 1px; height: 1px; opacity: 0; }
         
         .copyright-notice { 
             position: fixed; 
@@ -328,7 +328,7 @@
         const musicToggleBtn = document.getElementById('musicToggleBtn');
         const sakakiSpinner = document.getElementById('sakakiSpinner');
         const chiyo = document.getElementById('chiyo-flyer');
-        let count = 0;
+        let player, isMuted = false, count = 0;
 
         function flyChiyo() {
             chiyo.style.transition = 'none';
@@ -341,7 +341,21 @@
         }
         setInterval(flyChiyo, 10000);
 
-        overlay.addEventListener('click', () => { overlay.classList.add('hidden'); });
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '1', width: '1', videoId: '_Y0Td1NYvNs',
+                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': '_Y0Td1NYvNs' }
+            });
+        }
+
+        overlay.addEventListener('click', () => { 
+            overlay.classList.add('hidden');
+            if (player) player.playVideo();
+        });
 
         infoBtn.addEventListener('click', () => {
             count++;
@@ -350,7 +364,9 @@
 
         musicToggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            sakakiSpinner.classList.toggle('paused');
+            if (!player) return;
+            if (isMuted) { player.unMute(); isMuted = false; sakakiSpinner.classList.remove('paused'); }
+            else { player.mute(); isMuted = true; sakakiSpinner.classList.add('paused'); }
         });
 
         toggleBtn.addEventListener('click', () => {
