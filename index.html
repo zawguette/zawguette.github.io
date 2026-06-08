@@ -26,7 +26,6 @@
             position: relative;
         }
 
-        /* --- Secret Ball Styles --- */
         #secret-ball {
             position: fixed;
             bottom: 20px;
@@ -44,7 +43,7 @@
             cursor: pointer;
             z-index: 99;
             box-shadow: 4px 4px 0px #1a1a1a;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         .bouncing {
@@ -56,7 +55,6 @@
             to { transform: translateY(-50px); }
         }
 
-        /* --- Secret Page Styles --- */
         #secret-page {
             position: fixed;
             top: 0;
@@ -79,9 +77,21 @@
             text-align: center;
             max-width: 500px;
             box-shadow: 8px 8px 0px #000;
+            position: relative;
         }
 
-        /* --- Original Styles --- */
+        #close-secret-page {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4d4d;
+            border: 2px solid #1a1a1a;
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
         #chiyo-flyer {
             position: fixed;
             top: 0;
@@ -523,6 +533,7 @@
     <div id="secret-ball">CLICK ME!!</div>
     <div id="secret-page">
         <div class="card">
+            <button id="close-secret-page">X</button>
             <h1>Do you like this site so far!!??</h1>
             <p style="margin: 15px 0;">Its made by temperance!!</p>
             <p>heres my portofoilo if you want me to code something:</p>
@@ -609,9 +620,9 @@
         const infoTip = document.getElementById('infoTip');
         const chiyo = document.getElementById('chiyo-flyer');
         
-        // New elements
         const secretBall = document.getElementById('secret-ball');
         const secretPage = document.getElementById('secret-page');
+        const closeSecretPage = document.getElementById('close-secret-page');
 
         let count = 0;
         let player;
@@ -663,7 +674,6 @@
                 }
             }, 5670);
 
-            // Ball Logic
             setTimeout(() => {
                 secretBall.style.display = 'flex';
                 secretBall.classList.add('bouncing');
@@ -675,6 +685,11 @@
 
         secretBall.addEventListener('click', () => {
             secretPage.style.display = 'flex';
+            secretBall.style.display = 'none';
+        });
+
+        closeSecretPage.addEventListener('click', () => {
+            secretPage.style.display = 'none';
         });
 
         function showStatusBubble(text, duration) {
