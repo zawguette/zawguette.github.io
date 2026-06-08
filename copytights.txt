@@ -1,1 +1,6 @@
-
+/*
+ALL OF THE REPO IS OWNED BY ZAWGUETTE ON GITHUB (zawguette246@gmail.com)
+WRITTEN BY [Nizar Bassem] <[nydrago.18@gmail.com / NyDrago]
+Copyright (c) 2026. All Rights Reserved.
+Unauthorized copying, distribution, modification, or publication
+of this file, in whole or in part, is strictly prohibited.*/
