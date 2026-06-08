@@ -300,3 +300,84 @@
             <div class="contact-card">
                 <div class="card-blur-bg"></div>
                 <h2>Get in Touch</h2>
+                <p>hi im ritsu tainaka</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const overlay = document.getElementById('site-overlay');
+        const toggleBtn = document.getElementById('togglePageBtn');
+        const homePage = document.getElementById('homePage');
+        const contactPage = document.getElementById('contactPage');
+        const infoBtn = document.getElementById('infoBtn');
+        const musicToggleBtn = document.getElementById('musicToggleBtn');
+
+        let count = 0;
+        let player;
+        let isMuted = false;
+
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '1',
+                width: '1',
+                videoId: '_Y0Td1NYvNs',
+                playerVars: {
+                    'autoplay': 1,
+                    'loop': 1,
+                    'playlist': '_Y0Td1NYvNs',
+                    'controls': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1
+                }
+            });
+        }
+
+        overlay.addEventListener('click', () => {
+            overlay.classList.add('hidden');
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+        });
+
+        musicToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!player || typeof player.isMuted !== 'function') return;
+
+            if (isMuted) {
+                player.unMute();
+                player.playVideo();
+                isMuted = false;
+                musicToggleBtn.style.opacity = "1";
+            } else {
+                player.mute();
+                isMuted = true;
+                musicToggleBtn.style.opacity = "0.6";
+            }
+        });
+
+        infoBtn.addEventListener('click', () => {
+            count++;
+            alert('You clicked the info button ' + count + ' times!');
+        });
+
+        toggleBtn.addEventListener('click', () => {
+            if (homePage.classList.contains('active')) {
+                homePage.classList.remove('active');
+                contactPage.classList.add('active');
+                toggleBtn.textContent = 'Home';
+            } else {
+                contactPage.classList.remove('active');
+                homePage.classList.add('active');
+                toggleBtn.textContent = 'Contact';
+            }
+        });
+    </script>
+</body>
+</html>
