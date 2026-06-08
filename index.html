@@ -266,6 +266,8 @@
 
         .sakaki-status-bubble {
             position: absolute;
+            bottom: 82px;
+            left: 195px;
             background-color: #ffffff;
             border: 3px solid #1a1a1a;
             border-radius: 8px;
@@ -279,7 +281,7 @@
             pointer-events: none;
             opacity: 0;
             transform: scale(0.9);
-            transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), bottom 0.3s ease, left 0.3s ease, top 0.3s ease, right 0.3s ease;
+            transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .sakaki-status-bubble.pop-in {
@@ -287,21 +289,31 @@
             transform: scale(1);
         }
 
-        /* Default position next to Sakaki */
-        .sakaki-status-bubble[data-target="sakaki"] {
-            bottom: 82px;
-            left: 195px;
+        .info-tip-box {
+            position: absolute;
+            /* Anchored near top right of info card */
+            top: calc(5vh + clamp(4rem, 12vw, 8rem)*0.8 + 50px - 45px);
+            left: calc(50% + 360px);
+            background-color: #ffffff;
+            border: 3px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 10px 20px;
+            box-shadow: 4px 4px 0px #1a1a1a;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            white-space: nowrap;
+            z-index: 15;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-10px, 10px) rotate(45deg);
+            transform-origin: bottom left;
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Calculated position centered below the main info card */
-        .sakaki-status-bubble[data-target="info"] {
-            top: calc(5vh + clamp(4rem, 12vw, 8rem)*0.8 + 50px + 120px); 
-            left: 50%;
-            transform: translate(-50%, scale(0.9));
-        }
-        
-        .sakaki-status-bubble[data-target="info"].pop-in {
-            transform: translate(-50%, 1) scale(1);
+        .info-tip-box.pop-in {
+            opacity: 1;
+            transform: translate(0, 0) rotate(45deg);
         }
 
         .contact-card {
@@ -373,7 +385,11 @@
                 &lt;-- click the sakaki to mute/unmute!
             </div>
 
-            <div class="sakaki-status-bubble" id="statusBubble" data-target="sakaki"></div>
+            <div class="sakaki-status-bubble" id="statusBubble"></div>
+
+            <div class="info-tip-box" id="infoTip">
+                &lt;-- you should really try clicking that box if you havent already..
+            </div>
         </section>
 
         <section id="contactPage" class="page-view">
@@ -396,13 +412,13 @@
         const sakakiSpinner = document.getElementById('sakakiSpinner');
         const muteTip = document.getElementById('muteTip');
         const statusBubble = document.getElementById('statusBubble');
+        const infoTip = document.getElementById('infoTip');
 
         let count = 0;
         let player;
         let isMuted = false;
         let bubbleTimeout;
         let infoTipTimeout;
-        let siteUnlocked = false;
 
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -427,7 +443,6 @@
 
         overlay.addEventListener('click', () => {
             overlay.classList.add('hidden');
-            siteUnlocked = true;
             
             if (player && typeof player.playVideo === 'function') {
                 player.playVideo();
@@ -441,20 +456,17 @@
 
             infoTipTimeout = setTimeout(() => {
                 if (homePage.classList.contains('active')) {
-                    showStatusBubble("<-- you should really try clicking that box if you havent already..", 0, "info");
+                    infoTip.classList.add('pop-in');
                 }
             }, 10000);
         });
 
-        function showStatusBubble(text, duration, target = "sakaki") {
+        function showStatusBubble(text, duration) {
             clearTimeout(bubbleTimeout);
             statusBubble.classList.remove('pop-in');
             
-            if (target === "sakaki") {
-                muteTip.style.opacity = '0';
-            }
+            muteTip.style.opacity = '0';
             
-            statusBubble.setAttribute('data-target', target);
             statusBubble.textContent = text;
             
             void statusBubble.offsetWidth; 
@@ -471,30 +483,26 @@
             e.stopPropagation();
             if (!player || typeof player.isMuted !== 'function') return;
 
-            clearTimeout(infoTipTimeout);
-
             if (isMuted) {
                 player.unMute();
                 player.playVideo();
                 isMuted = false;
                 musicToggleBtn.style.opacity = "1";
                 sakakiSpinner.classList.remove('paused');
-                showStatusBubble("thank you..", 2000, "sakaki");
+                showStatusBubble("thank you..", 2000);
             } else {
                 player.mute();
                 isMuted = true;
                 musicToggleBtn.style.opacity = "0.6";
                 sakakiSpinner.classList.add('paused');
-                showStatusBubble("Hey!", 1200, "sakaki");
+                showStatusBubble("Hey!", 1200);
             }
         });
 
         infoBtn.addEventListener('click', () => {
             count++;
             clearTimeout(infoTipTimeout);
-            if (statusBubble.getAttribute('data-target') === 'info') {
-                statusBubble.classList.remove('pop-in');
-            }
+            infoTip.classList.remove('pop-in');
             alert('You clicked the info button ' + count + ' times!');
         });
 
@@ -505,13 +513,14 @@
                 toggleBtn.textContent = 'Home';
                 muteTip.style.display = 'none';
                 statusBubble.style.display = 'none';
-                clearTimeout(infoTipTimeout);
+                infoTip.style.display = 'none';
             } else {
                 contactPage.classList.remove('active');
                 homePage.classList.add('active');
                 toggleBtn.textContent = 'Contact';
                 muteTip.style.display = 'block';
                 statusBubble.style.display = 'block';
+                infoTip.style.display = 'block';
             }
         });
     </script>
