@@ -31,7 +31,8 @@
             display: flex;
             justify-content: center;
             padding: 30px 0;
-            z-index: 10;
+            position: relative;
+            z-index: 20;
         }
 
         .cycle-nav-btn {
@@ -63,6 +64,7 @@
             flex-grow: 1;
             position: relative;
             width: 100%;
+            z-index: 10;
         }
 
         .page-view {
@@ -119,6 +121,7 @@
             max-width: 700px;
             width: 90%;
             text-align: center;
+            color: #ffffff;
             transition: box-shadow 0.2s;
         }
 
@@ -142,7 +145,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 5;
+            z-index: 15;
         }
 
         .spinning-image-wrapper {
@@ -177,6 +180,7 @@
             max-width: 450px;
             width: 90%;
             margin-top: 5vh;
+            color: #ffffff;
         }
 
         .contact-card h2 {
@@ -187,7 +191,6 @@
         .contact-card p {
             font-size: 1.2rem;
             font-weight: 600;
-            color: #1a1a1a;
         }
     </style>
 </head>
@@ -227,3 +230,25 @@
         const homePage = document.getElementById('homePage');
         const contactPage = document.getElementById('contactPage');
         const infoBtn = document.getElementById('infoBtn');
+
+        let count = 0;
+
+        infoBtn.addEventListener('click', () => {
+            count++;
+            alert('You clicked the info button ' + count + ' times!');
+        });
+
+        toggleBtn.addEventListener('click', () => {
+            if (homePage.classList.contains('active')) {
+                homePage.classList.remove('active');
+                contactPage.classList.add('active');
+                toggleBtn.textContent = 'Home';
+            } else {
+                contactPage.classList.remove('active');
+                homePage.classList.add('active');
+                toggleBtn.textContent = 'Contact';
+            }
+        });
+    </script>
+</body>
+</html>
