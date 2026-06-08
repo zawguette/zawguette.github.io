@@ -291,9 +291,9 @@
 
         .info-tip-box {
             position: absolute;
-            /* Anchored near top right of info card */
-            top: calc(5vh + clamp(4rem, 12vw, 8rem)*0.8 + 50px - 45px);
-            left: calc(50% + 360px);
+            /* Anchored dynamically based on the info-card constraints */
+            top: calc(5vh + clamp(4rem, 12vw, 8rem) * 0.8 + 25px);
+            left: calc(50% + 340px);
             background-color: #ffffff;
             border: 3px solid #1a1a1a;
             border-radius: 8px;
@@ -306,8 +306,8 @@
             z-index: 15;
             pointer-events: none;
             opacity: 0;
-            transform: translate(-10px, 10px) rotate(45deg);
-            transform-origin: bottom left;
+            /* Rotates container cleanly while keeping it relative to its origin point */
+            transform: translate(-20px, 20px) rotate(45deg);
             transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -388,7 +388,7 @@
             <div class="sakaki-status-bubble" id="statusBubble"></div>
 
             <div class="info-tip-box" id="infoTip">
-                &lt;-- you should really try clicking that box if you havent already..
+                ^-- you should really try clicking that box if you havent already..
             </div>
         </section>
 
@@ -454,6 +454,7 @@
                 muteTip.classList.add('fade-out');
             }, 5200);
 
+            // This timer is completely separate now and will run regardless of Sakaki clicks
             infoTipTimeout = setTimeout(() => {
                 if (homePage.classList.contains('active')) {
                     infoTip.classList.add('pop-in');
@@ -466,7 +467,6 @@
             statusBubble.classList.remove('pop-in');
             
             muteTip.style.opacity = '0';
-            
             statusBubble.textContent = text;
             
             void statusBubble.offsetWidth; 
