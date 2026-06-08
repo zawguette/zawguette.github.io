@@ -459,4 +459,75 @@
                 if (homePage.classList.contains('active')) {
                     infoTip.classList.add('pop-in');
                     
-                    // Added automatic
+                    // Added automatic 3.5 second fadeout for the info box helper tip
+                    setTimeout(() => {
+                        infoTip.classList.remove('pop-in');
+                    }, 3500);
+                }
+            }, 10000);
+        });
+
+        function showStatusBubble(text, duration) {
+            clearTimeout(bubbleTimeout);
+            statusBubble.classList.remove('pop-in');
+            
+            muteTip.style.opacity = '0';
+            statusBubble.textContent = text;
+            
+            void statusBubble.offsetWidth; 
+            statusBubble.classList.add('pop-in');
+
+            if (duration > 0) {
+                bubbleTimeout = setTimeout(() => {
+                    statusBubble.classList.remove('pop-in');
+                }, duration);
+            }
+        }
+
+        musicToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!player || typeof player.isMuted !== 'function') return;
+
+            if (isMuted) {
+                player.unMute();
+                player.playVideo();
+                isMuted = false;
+                musicToggleBtn.style.opacity = "1";
+                sakakiSpinner.classList.remove('paused');
+                showStatusBubble("thank you..", 2000);
+            } else {
+                player.mute();
+                isMuted = true;
+                musicToggleBtn.style.opacity = "0.6";
+                sakakiSpinner.classList.add('paused');
+                showStatusBubble("Hey!", 1200);
+            }
+        });
+
+        infoBtn.addEventListener('click', () => {
+            count++;
+            clearTimeout(infoTipTimeout);
+            infoTip.classList.remove('pop-in');
+            alert('You clicked the info button ' + count + ' times!');
+        });
+
+        toggleBtn.addEventListener('click', () => {
+            if (homePage.classList.contains('active')) {
+                homePage.classList.remove('active');
+                contactPage.classList.add('active');
+                toggleBtn.textContent = 'Home';
+                muteTip.style.display = 'none';
+                statusBubble.style.display = 'none';
+                infoTip.style.display = 'none';
+            } else {
+                contactPage.classList.remove('active');
+                homePage.classList.add('active');
+                toggleBtn.textContent = 'Contact';
+                muteTip.style.display = 'block';
+                statusBubble.style.display = 'block';
+                infoTip.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
