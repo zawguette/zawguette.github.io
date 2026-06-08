@@ -81,9 +81,7 @@
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
-            backdrop-filter: blur(0px);
-            -webkit-backdrop-filter: blur(0px);
-            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
         }
 
         .page-view.active {
@@ -92,18 +90,11 @@
             transform: translateY(0);
         }
 
-        .page-view.active .info-card,
-        .page-view.active .contact-card,
-        .page-view.active .spinning-container {
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
         .jeb-logo {
             font-size: clamp(4rem, 12vw, 8rem);
             font-weight: 900;
             letter-spacing: -2px;
-            color: #5533ff;
+            color: #ffffff;
             -webkit-text-stroke: 2px #555555;
             text-stroke: 2px #555555;
             line-height: 0.8;
@@ -111,12 +102,14 @@
             text-align: center;
             user-select: none;
             opacity: 1;
-            margin-left: 25px;
+            margin-left: 25px; /* Shifted an additional 10px to the right */
         }
 
         .info-card {
             border: 3px solid #1a1a1a;
             background: rgba(234, 131, 56, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 25px 40px;
             font-size: 1.1rem;
             font-weight: 600;
@@ -128,8 +121,10 @@
             max-width: 700px;
             width: 90%;
             text-align: center;
-            color: #5533ff;
-            transition: box-shadow 0.2s, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+            color: #f0f2f5; /* Off-white text */
+            -webkit-text-stroke: 1px #444444; /* Slight gray outline */
+            text-stroke: 1px #444444;
+            transition: box-shadow 0.2s;
         }
 
         .info-card:hover {
@@ -143,6 +138,8 @@
             width: 140px;
             height: 140px;
             background: rgba(234, 131, 56, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 10px;
@@ -151,7 +148,6 @@
             align-items: center;
             justify-content: center;
             z-index: 15;
-            transition: backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
         }
 
         .spinning-image-wrapper {
@@ -176,6 +172,8 @@
 
         .contact-card {
             background: rgba(234, 131, 56, 0.35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 40px 60px;
@@ -184,14 +182,14 @@
             max-width: 450px;
             width: 90%;
             margin-top: 5vh;
-            color: #5533ff;
-            transition: backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+            color: #f0f2f5; /* Off-white text */
+            -webkit-text-stroke: 1px #444444; /* Slight gray outline */
+            text-stroke: 1px #444444;
         }
 
         .contact-card h2 {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: #7755ff;
         }
 
         .contact-card p {
@@ -217,7 +215,7 @@
             <div class="spinning-container">
                 <div class="spinning-image-wrapper">
                     <img src="images/sakaki.png" alt="Sakaki" class="spinning-image" id="sakakiImg" onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
-                    <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg); color: #5533ff;">🌀 Sakaki PNG</span>
+                    <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg);">🌀 Sakaki PNG</span>
                 </div>
             </div>
         </section>
