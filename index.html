@@ -230,6 +230,36 @@
             to { transform: rotate(360deg); }
         }
 
+        .mute-tip-box {
+            position: absolute;
+            bottom: 82px;
+            left: 195px;
+            background-color: #ffffff;
+            border: 3px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 10px 20px;
+            box-shadow: 4px 4px 0px #1a1a1a;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            white-space: nowrap;
+            z-index: 15;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .mute-tip-box.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mute-tip-box.fade-out {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
         .contact-card {
             position: relative;
             border: 3px solid #1a1a1a;
@@ -294,6 +324,10 @@
                     <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg);">🌀 Sakaki PNG</span>
                 </div>
             </div>
+
+            <div class="mute-tip-box" id="muteTip">
+                &lt;-- click the sakaki to mute/unmute!
+            </div>
         </section>
 
         <section id="contactPage" class="page-view">
@@ -313,6 +347,7 @@
         const contactPage = document.getElementById('contactPage');
         const infoBtn = document.getElementById('infoBtn');
         const musicToggleBtn = document.getElementById('musicToggleBtn');
+        const muteTip = document.getElementById('muteTip');
 
         let count = 0;
         let player;
@@ -341,9 +376,16 @@
 
         overlay.addEventListener('click', () => {
             overlay.classList.add('hidden');
+            
             if (player && typeof player.playVideo === 'function') {
                 player.playVideo();
             }
+
+            muteTip.classList.add('visible');
+
+            setTimeout(() => {
+                muteTip.classList.add('fade-out');
+            }, 8670);
         });
 
         musicToggleBtn.addEventListener('click', (e) => {
@@ -372,10 +414,12 @@
                 homePage.classList.remove('active');
                 contactPage.classList.add('active');
                 toggleBtn.textContent = 'Home';
+                muteTip.style.display = 'none';
             } else {
                 contactPage.classList.remove('active');
                 homePage.classList.add('active');
                 toggleBtn.textContent = 'Contact';
+                muteTip.style.display = 'block';
             }
         });
     </script>
