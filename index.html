@@ -409,60 +409,58 @@
             transform: translate(0, 0) rotate(-45deg);
         }
 
-.contact-layout {
-    display: flex;
-    width: 95%;
-    max-width: 1200px;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    gap: 40px;
-}
+        .contact-layout {
+            display: flex;
+            width: 95%;
+            max-width: 1200px;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            gap: 40px;
+        }
 
-.portrait-container {
-    position: relative;
-    width: 320px;
-    height: 540px;
-    border: 3px solid #1a1a1a;
-    border-radius: 16px;
-    box-shadow: 8px 8px 0px #1a1a1a;
-    overflow: hidden;
-    background-color: rgba(34, 34, 34, 0.9);
-    margin: 0;
-}
+        .portrait-container {
+            position: relative;
+            width: 320px;
+            height: 540px;
+            border: 3px solid #1a1a1a;
+            border-radius: 16px;
+            box-shadow: 8px 8px 0px #1a1a1a;
+            overflow: hidden;
+            background-color: rgba(34, 34, 34, 0.9);
+            margin: 0;
+        }
 
+        .sideways-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            user-select: none;
+        }
 
+        .portrait-img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            z-index: 2;
+        }
 
-.portrait-img {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.9;
-    z-index: 2;
-}
-
-.sideways-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    user-select: none;
-    overflow: hidden;
-}
-
-.sideways-text {
-    font-size: 11rem;
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.25);
-    text-transform: uppercase;
-    
-}
+        .sideways-text {
+            font-size: 11rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.25);
+            transform: rotate(-90deg);
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
 
         .contact-card {
             position: relative;
