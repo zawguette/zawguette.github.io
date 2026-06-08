@@ -11,12 +11,7 @@
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-/*
-ALL OF THE REPO IS OWNED BY ZAWGUETTE ON GITHUB (zawguette246@gmail.com)
-WRITTEN BY [Nizar Bassem] <[nydrago.18@gmail.com / NyDrago]
-Copyright (c) 2026. All Rights Reserved.
-Unauthorized copying, distribution, modification, or publication
-of this file, in whole or in part, is strictly prohibited.*/
+
         body {
             background-image: url('images/backround.png');
             background-size: cover;
@@ -29,6 +24,15 @@ of this file, in whole or in part, is strictly prohibited.*/
             flex-direction: column;
             overflow: hidden;
             position: relative;
+        }
+
+        #chiyo-flyer {
+            position: fixed;
+            top: 0;
+            right: -200px;
+            width: 150px;
+            z-index: 50;
+            pointer-events: none;
         }
 
         #site-overlay {
@@ -460,6 +464,8 @@ of this file, in whole or in part, is strictly prohibited.*/
 </head>
 <body>
 
+    <img src="images/chiyo.png" id="chiyo-flyer" alt="">
+
     <div id="site-overlay">
         <div class="overlay-text">Click to open site!</div>
         <div class="overlay-warning">this site does not work on mobile/smallscreens</div>
@@ -535,12 +541,25 @@ of this file, in whole or in part, is strictly prohibited.*/
         const muteTip = document.getElementById('muteTip');
         const statusBubble = document.getElementById('statusBubble');
         const infoTip = document.getElementById('infoTip');
+        const chiyo = document.getElementById('chiyo-flyer');
 
         let count = 0;
         let player;
         let isMuted = false;
         let bubbleTimeout;
         let infoTipTimeout;
+
+        function animateChiyo() {
+            chiyo.style.transition = 'none';
+            chiyo.style.right = '-200px';
+            chiyo.style.top = (Math.random() * (window.innerHeight - 150)) + 'px';
+            setTimeout(() => {
+                chiyo.style.transition = 'transform 10s linear';
+                chiyo.style.transform = 'translateX(-' + (window.innerWidth + 300) + 'px)';
+            }, 50);
+        }
+        setInterval(animateChiyo, 10000);
+        setTimeout(animateChiyo, 1000);
 
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
