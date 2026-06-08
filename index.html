@@ -42,10 +42,8 @@ of this file, in whole or in part, is strictly prohibited.*/
             -webkit-backdrop-filter: blur(30px);
             z-index: 100;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
             cursor: pointer;
             transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s;
         }
@@ -66,28 +64,33 @@ of this file, in whole or in part, is strictly prohibited.*/
             text-transform: uppercase;
             user-select: none;
             animation: pulse 2s infinite ease-in-out;
-            text-align: center;
-        }
-
-        .overlay-warning {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #ffffff;
-            background-color: rgba(26, 26, 26, 0.85);
-            border: 2px solid #1a1a1a;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            max-width: 90%;
-            text-align: center;
-            box-shadow: 3px 3px 0px #1a1a1a;
-            user-select: none;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.9; }
             50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .responsive-warning-box {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto 0 auto;
+            padding: 12px 20px;
+            background-color: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 3px solid #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px #1a1a1a;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            z-index: 30;
+            position: relative;
+            flex-shrink: 0;
         }
 
         header {
@@ -462,10 +465,13 @@ of this file, in whole or in part, is strictly prohibited.*/
 
     <div id="site-overlay">
         <div class="overlay-text">Click to open site!</div>
-        <div class="overlay-warning">this site does not work on mobile/smallscreens</div>
     </div>
 
     <div id="yt-player"></div>
+
+    <div class="responsive-warning-box">
+        this site does not work on mobile/smallscreens
+    </div>
 
     <header>
         <button id="togglePageBtn" class="cycle-nav-btn">Contact</button>
