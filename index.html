@@ -550,13 +550,13 @@
         let infoTipTimeout;
 
         function animateChiyo() {
-            // Reset transition and transform to snap back to start position
+            
             chiyo.style.transition = 'none';
             chiyo.style.transform = 'none'; 
             chiyo.style.right = '-200px';
             chiyo.style.top = (Math.random() * (window.innerHeight - 150)) + 'px';
             
-            // Brief delay then start new animation
+            
             setTimeout(() => {
                 chiyo.style.transition = 'transform 10s linear';
                 chiyo.style.transform = 'translateX(-' + (window.innerWidth + 300) + 'px)';
