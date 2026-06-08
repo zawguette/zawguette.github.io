@@ -291,9 +291,9 @@
 
         .info-tip-box {
             position: absolute;
-            /* Anchored dynamically based on the info-card constraints */
-            top: calc(5vh + clamp(4rem, 12vw, 8rem) * 0.8 + 25px);
-            left: calc(50% + 340px);
+            /* Anchored near the top right of the card boundary coordinates */
+            top: calc(5vh + clamp(4rem, 12vw, 8rem) * 0.8 + 10px);
+            left: calc(50% + 350px);
             background-color: #ffffff;
             border: 3px solid #1a1a1a;
             border-radius: 8px;
@@ -306,14 +306,14 @@
             z-index: 15;
             pointer-events: none;
             opacity: 0;
-            /* Rotates container cleanly while keeping it relative to its origin point */
-            transform: translate(-20px, 20px) rotate(45deg);
+            /* Changed rotation orientation to exactly -45 degrees */
+            transform: translate(20px, -20px) rotate(-45deg);
             transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .info-tip-box.pop-in {
             opacity: 1;
-            transform: translate(0, 0) rotate(45deg);
+            transform: translate(0, 0) rotate(-45deg);
         }
 
         .contact-card {
@@ -388,7 +388,7 @@
             <div class="sakaki-status-bubble" id="statusBubble"></div>
 
             <div class="info-tip-box" id="infoTip">
-                ^-- you should really try clicking that box if you havent already..
+                &lt;-- you should really try clicking that box if you havent already..
             </div>
         </section>
 
@@ -454,75 +454,9 @@
                 muteTip.classList.add('fade-out');
             }, 5200);
 
-            // This timer is completely separate now and will run regardless of Sakaki clicks
+            // Independent background execution
             infoTipTimeout = setTimeout(() => {
                 if (homePage.classList.contains('active')) {
                     infoTip.classList.add('pop-in');
-                }
-            }, 10000);
-        });
-
-        function showStatusBubble(text, duration) {
-            clearTimeout(bubbleTimeout);
-            statusBubble.classList.remove('pop-in');
-            
-            muteTip.style.opacity = '0';
-            statusBubble.textContent = text;
-            
-            void statusBubble.offsetWidth; 
-            statusBubble.classList.add('pop-in');
-
-            if (duration > 0) {
-                bubbleTimeout = setTimeout(() => {
-                    statusBubble.classList.remove('pop-in');
-                }, duration);
-            }
-        }
-
-        musicToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (!player || typeof player.isMuted !== 'function') return;
-
-            if (isMuted) {
-                player.unMute();
-                player.playVideo();
-                isMuted = false;
-                musicToggleBtn.style.opacity = "1";
-                sakakiSpinner.classList.remove('paused');
-                showStatusBubble("thank you..", 2000);
-            } else {
-                player.mute();
-                isMuted = true;
-                musicToggleBtn.style.opacity = "0.6";
-                sakakiSpinner.classList.add('paused');
-                showStatusBubble("Hey!", 1200);
-            }
-        });
-
-        infoBtn.addEventListener('click', () => {
-            count++;
-            clearTimeout(infoTipTimeout);
-            infoTip.classList.remove('pop-in');
-            alert('You clicked the info button ' + count + ' times!');
-        });
-
-        toggleBtn.addEventListener('click', () => {
-            if (homePage.classList.contains('active')) {
-                homePage.classList.remove('active');
-                contactPage.classList.add('active');
-                toggleBtn.textContent = 'Home';
-                muteTip.style.display = 'none';
-                statusBubble.style.display = 'none';
-                infoTip.style.display = 'none';
-            } else {
-                contactPage.classList.remove('active');
-                homePage.classList.add('active');
-                toggleBtn.textContent = 'Contact';
-                muteTip.style.display = 'block';
-                statusBubble.style.display = 'block';
-                infoTip.style.display = 'block';
-            }
-        });
-    </script>
-</body>
-</html>
+                    
+                    // Added automatic
