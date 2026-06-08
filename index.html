@@ -314,31 +314,124 @@
             transform: translate(0, 0) rotate(-45deg);
         }
 
+        .contact-layout {
+            display: flex;
+            width: 90%;
+            max-width: 1100px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            margin-bottom: auto;
+            gap: 50px;
+        }
+
+        .portrait-container {
+            position: relative;
+            width: 320px;
+            height: 450px;
+            border: 3px solid #1a1a1a;
+            border-radius: 16px;
+            box-shadow: 8px 8px 0px #1a1a1a;
+            overflow: hidden;
+            background-color: #222;
+        }
+
+        .portrait-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sideways-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .sideways-text {
+            font-size: 11rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.25);
+            transform: rotate(-90deg);
+            white-space: nowrap;
+            letter-spacing: 2rem;
+            text-transform: uppercase;
+            transform-origin: center;
+            padding-left: 2rem;
+        }
+
         .contact-card {
             position: relative;
             border: 3px solid #1a1a1a;
             border-radius: 16px;
-            padding: 40px 60px;
+            padding: 35px;
             box-shadow: 8px 8px 0px #1a1a1a;
             text-align: center;
-            max-width: 450px;
-            width: 90%;
-            margin-top: 5vh;
-            color: #f0f2f5;
-            -webkit-text-stroke: 1px #444444;
-            text-stroke: 1px #444444;
+            width: 550px;
             overflow: hidden;
             background: transparent;
         }
 
         .contact-card h2 {
             font-size: 2.5rem;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            color: #f0f2f5;
+            -webkit-text-stroke: 1px #444444;
+            text-stroke: 1px #444444;
         }
 
         .contact-card p {
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             font-weight: 600;
+            margin-bottom: 25px;
+            color: #f0f2f5;
+            -webkit-text-stroke: 0.5px #444444;
+            text-stroke: 0.5px #444444;
+        }
+
+        .redirect-buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .redirect-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .redirect-btn:hover {
+            background-color: #f0f2f5;
+            color: #1a1a1a;
+            border-color: #1a1a1a;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #1a1a1a;
+        }
+
+        .redirect-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #1a1a1a;
         }
 
         #yt-player {
@@ -391,10 +484,26 @@
         </section>
 
         <section id="contactPage" class="page-view">
-            <div class="contact-card">
-                <div class="card-blur-bg"></div>
-                <h2>Get in Touch</h2>
-                <p>hi im ritsu tainaka</p>
+            <div class="contact-layout">
+                <div class="portrait-container">
+                    <img src="images/portrait.png" alt="Portrait" class="portrait-img" onerror="this.style.opacity='0.1';">
+                    <div class="sideways-overlay">
+                        <div class="sideways-text">JEB</div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="card-blur-bg"></div>
+                    <h2>Get in Touch</h2>
+                    <p>hi im ritsu tainaka</p>
+                    
+                    <div class="redirect-buttons-container">
+                        <a href="https://roblox.com" target="_blank" class="redirect-btn">Roblox Profile</a>
+                        <a href="https://youtube.com" target="_blank" class="redirect-btn">YouTube Channel</a>
+                        <a href="https://twitter.com" target="_blank" class="redirect-btn">Twitter / X</a>
+                        <a href="https://discord.com" target="_blank" class="redirect-btn">Discord Server</a>
+                    </div>
+                </div>
             </div>
         </section>
 
