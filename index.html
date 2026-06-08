@@ -26,6 +26,62 @@
             position: relative;
         }
 
+        /* --- Secret Ball Styles --- */
+        #secret-ball {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            background: white;
+            border: 3px solid #1a1a1a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 4px 4px 0px #1a1a1a;
+            display: none; /* Hidden by default */
+        }
+
+        .bouncing {
+            animation: fastBounce 0.2s infinite alternate;
+        }
+
+        @keyframes fastBounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50px); }
+        }
+
+        /* --- Secret Page Styles --- */
+        #secret-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #secret-page .card {
+            background: #ffffff;
+            border: 4px solid #1a1a1a;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 8px 8px 0px #000;
+        }
+
+        /* --- Original Styles --- */
         #chiyo-flyer {
             position: fixed;
             top: 0;
@@ -464,6 +520,16 @@
 </head>
 <body>
 
+    <div id="secret-ball">CLICK ME!!</div>
+    <div id="secret-page">
+        <div class="card">
+            <h1>Do you like this site so far!!??</h1>
+            <p style="margin: 15px 0;">Its made by temperance!!</p>
+            <p>heres my portofoilo if you want me to code something:</p>
+            <a href="https://nydrago.github.io" target="_blank" class="redirect-btn" style="margin-top:20px; color:white; background:#1a1a1a;">Go to Portfolio</a>
+        </div>
+    </div>
+
     <img src="images/chiyo.png" id="chiyo-flyer" alt="">
 
     <div id="site-overlay">
@@ -542,6 +608,10 @@
         const statusBubble = document.getElementById('statusBubble');
         const infoTip = document.getElementById('infoTip');
         const chiyo = document.getElementById('chiyo-flyer');
+        
+        // New elements
+        const secretBall = document.getElementById('secret-ball');
+        const secretPage = document.getElementById('secret-page');
 
         let count = 0;
         let player;
@@ -550,13 +620,10 @@
         let infoTipTimeout;
 
         function animateChiyo() {
-            
             chiyo.style.transition = 'none';
             chiyo.style.transform = 'none'; 
             chiyo.style.right = '-200px';
             chiyo.style.top = (Math.random() * (window.innerHeight - 150)) + 'px';
-            
-            
             setTimeout(() => {
                 chiyo.style.transition = 'transform 10s linear';
                 chiyo.style.transform = 'translateX(-' + (window.innerWidth + 300) + 'px)';
@@ -573,17 +640,8 @@
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('yt-player', {
-                height: '1',
-                width: '1',
-                videoId: '_Y0Td1NYvNs',
-                playerVars: {
-                    'autoplay': 1,
-                    'loop': 1,
-                    'playlist': '_Y0Td1NYvNs',
-                    'controls': 0,
-                    'showinfo': 0,
-                    'modestbranding': 1
-                }
+                height: '1', width: '1', videoId: '_Y0Td1NYvNs',
+                playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': '_Y0Td1NYvNs', 'controls': 0, 'showinfo': 0, 'modestbranding': 1 }
             });
         }
 
@@ -596,42 +654,44 @@
 
             muteTip.classList.add('visible');
 
-            setTimeout(() => {
-                muteTip.classList.add('fade-out');
-            }, 5200);
+            setTimeout(() => { muteTip.classList.add('fade-out'); }, 5200);
 
             infoTipTimeout = setTimeout(() => {
                 if (homePage.classList.contains('active')) {
                     infoTip.classList.add('pop-in');
-                    
-                    setTimeout(() => {
-                        infoTip.classList.remove('pop-in');
-                    }, 4200);
+                    setTimeout(() => { infoTip.classList.remove('pop-in'); }, 4200);
                 }
             }, 5670);
+
+            // Ball Logic
+            setTimeout(() => {
+                secretBall.style.display = 'flex';
+                secretBall.classList.add('bouncing');
+                setTimeout(() => {
+                    secretBall.classList.remove('bouncing');
+                }, 4000);
+            }, 15000);
+        });
+
+        secretBall.addEventListener('click', () => {
+            secretPage.style.display = 'flex';
         });
 
         function showStatusBubble(text, duration) {
             clearTimeout(bubbleTimeout);
             statusBubble.classList.remove('pop-in');
-            
             muteTip.style.opacity = '0';
             statusBubble.textContent = text;
-            
             void statusBubble.offsetWidth; 
             statusBubble.classList.add('pop-in');
-
             if (duration > 0) {
-                bubbleTimeout = setTimeout(() => {
-                    statusBubble.classList.remove('pop-in');
-                }, duration);
+                bubbleTimeout = setTimeout(() => { statusBubble.classList.remove('pop-in'); }, duration);
             }
         }
 
         musicToggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!player || typeof player.isMuted !== 'function') return;
-
             if (isMuted) {
                 player.unMute();
                 player.playVideo();
