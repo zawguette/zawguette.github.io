@@ -18,7 +18,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-color: #f7f9fc;
-            color: #0044ff; /* Originally: #1a1a1a */
+            color: #1a1a1a;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -36,8 +36,8 @@
         }
 
         .cycle-nav-btn {
-            background-color: #002288; /* Originally: #1a1a1a */
-            color: #66ccff; /* Originally: #ffffff */
+            background-color: #1a1a1a;
+            color: #ffffff;
             border: none;
             padding: 12px 35px;
             font-size: 1.1rem;
@@ -53,7 +53,7 @@
         .cycle-nav-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            background-color: #0033bb; /* Originally: #333333 */
+            background-color: #333333;
         }
 
         .cycle-nav-btn:active {
@@ -81,8 +81,6 @@
             opacity: 0;
             visibility: hidden;
             transform: translateY(20px);
-            
-            /* Added smooth backdrop-filter tweening alongside opacity and transform */
             backdrop-filter: blur(0px);
             -webkit-backdrop-filter: blur(0px);
             transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
@@ -94,7 +92,6 @@
             transform: translateY(0);
         }
 
-        /* Target cards individually when page is active to animate the blur path cleanly */
         .page-view.active .info-card,
         .page-view.active .contact-card,
         .page-view.active .spinning-container {
@@ -106,37 +103,37 @@
             font-size: clamp(4rem, 12vw, 8rem);
             font-weight: 900;
             letter-spacing: -2px;
-            color: #0055ff; /* Originally: #ffffff */
-            -webkit-text-stroke: 2px #001155; /* Originally: #555555 */
-            text-stroke: 2px #001155; /* Originally: #555555 */
+            color: #5533ff;
+            -webkit-text-stroke: 2px #555555;
+            text-stroke: 2px #555555;
             line-height: 0.8;
             margin-bottom: 50px;
             text-align: center;
             user-select: none;
             opacity: 1;
-            margin-left: 25px; /* Pushed an extra 10px to the right */
+            margin-left: 25px;
         }
 
         .info-card {
-            border: 3px solid #002288; /* Originally: #1a1a1a */
-            background: rgba(0, 68, 255, 0.2); /* Originally orange: rgba(234, 131, 56, 0.35) */
+            border: 3px solid #1a1a1a;
+            background: rgba(234, 131, 56, 0.35);
             padding: 25px 40px;
             font-size: 1.1rem;
             font-weight: 600;
             line-height: 1.6;
             letter-spacing: 0.5px;
             border-radius: 8px;
-            box-shadow: 6px 6px 0px #002288; /* Originally: #1a1a1a */
+            box-shadow: 6px 6px 0px #1a1a1a;
             cursor: pointer;
             max-width: 700px;
             width: 90%;
             text-align: center;
-            color: #99ccff; /* Originally: #ffffff */
+            color: #5533ff;
             transition: box-shadow 0.2s, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
         }
 
         .info-card:hover {
-            box-shadow: 8px 8px 0px #002288; /* Originally: #1a1a1a */
+            box-shadow: 8px 8px 0px #1a1a1a;
         }
 
         .spinning-container {
@@ -145,11 +142,11 @@
             left: 40px;
             width: 140px;
             height: 140px;
-            background: rgba(0, 68, 255, 0.2); /* Originally orange: rgba(234, 131, 56, 0.35) */
-            border: 3px solid #002288; /* Originally: #1a1a1a */
+            background: rgba(234, 131, 56, 0.35);
+            border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 10px;
-            box-shadow: 4px 4px 0px #002288; /* Originally: #1a1a1a */
+            box-shadow: 4px 4px 0px #1a1a1a;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -178,23 +175,23 @@
         }
 
         .contact-card {
-            background: rgba(0, 68, 255, 0.2); /* Originally orange: rgba(234, 131, 56, 0.35) */
-            border: 3px solid #002288; /* Originally: #1a1a1a */
+            background: rgba(234, 131, 56, 0.35);
+            border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 40px 60px;
-            box-shadow: 8px 8px 0px #002288; /* Originally: #1a1a1a */
+            box-shadow: 8px 8px 0px #1a1a1a;
             text-align: center;
             max-width: 450px;
             width: 90%;
             margin-top: 5vh;
-            color: #99ccff; /* Originally: #ffffff */
+            color: #5533ff;
             transition: backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
         }
 
         .contact-card h2 {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: #66aaff; /* Originally: #ffffff */
+            color: #7755ff;
         }
 
         .contact-card p {
@@ -220,7 +217,7 @@
             <div class="spinning-container">
                 <div class="spinning-image-wrapper">
                     <img src="images/sakaki.png" alt="Sakaki" class="spinning-image" id="sakakiImg" onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
-                    <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg); color: #0044ff;">🌀 Sakaki PNG</span>
+                    <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg); color: #5533ff;">🌀 Sakaki PNG</span>
                 </div>
             </div>
         </section>
