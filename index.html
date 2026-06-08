@@ -102,16 +102,16 @@
             text-align: center;
             user-select: none;
             opacity: 1;
-            margin-left: 25px; /* Shifted an additional 10px to the right */
+            margin-left: 25px;
         }
 
         .info-card {
             border: 3px solid #1a1a1a;
             background: rgba(234, 131, 56, 0.35);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
             padding: 25px 40px;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 600;
             line-height: 1.6;
             letter-spacing: 0.5px;
@@ -121,10 +121,15 @@
             max-width: 700px;
             width: 90%;
             text-align: center;
-            color: #f0f2f5; /* Off-white text */
-            -webkit-text-stroke: 1px #444444; /* Slight gray outline */
+            color: #f0f2f5;
+            -webkit-text-stroke: 1px #444444;
             text-stroke: 1px #444444;
-            transition: box-shadow 0.2s;
+            transition: box-shadow 0.2s, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+        }
+
+        .page-view.active .info-card {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .info-card:hover {
@@ -138,8 +143,8 @@
             width: 140px;
             height: 140px;
             background: rgba(234, 131, 56, 0.35);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
             border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 10px;
@@ -148,6 +153,12 @@
             align-items: center;
             justify-content: center;
             z-index: 15;
+            transition: backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+        }
+
+        .page-view.active .spinning-container {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .spinning-image-wrapper {
@@ -172,8 +183,8 @@
 
         .contact-card {
             background: rgba(234, 131, 56, 0.35);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
             border: 3px solid #1a1a1a;
             border-radius: 16px;
             padding: 40px 60px;
@@ -182,9 +193,15 @@
             max-width: 450px;
             width: 90%;
             margin-top: 5vh;
-            color: #f0f2f5; /* Off-white text */
-            -webkit-text-stroke: 1px #444444; /* Slight gray outline */
+            color: #f0f2f5;
+            -webkit-text-stroke: 1px #444444;
             text-stroke: 1px #444444;
+            transition: backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+        }
+
+        .page-view.active .contact-card {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         .contact-card h2 {
@@ -193,7 +210,7 @@
         }
 
         .contact-card p {
-            font-size: 1.2rem;
+            font-size: 1.35rem;
             font-weight: 600;
         }
     </style>
