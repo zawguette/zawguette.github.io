@@ -13,11 +13,7 @@
         }
 
         body {
-            background-image: url('images/backround.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: #f7f9fc;
+            background: transparent;
             color: #1a1a1a;
             height: 100vh;
             display: flex;
@@ -92,7 +88,6 @@
             width: 150px;
             z-index: 50;
             pointer-events: none;
-            transition: transform 10s linear;
         }
 
         header {
@@ -212,7 +207,7 @@
             z-index: -1;
             opacity: 0;
             transition: opacity 0.6s ease-out;
-            transition-delay: 0s;
+            transition-delay: 0.1s;
         }
 
         .page-view.active .card-blur-bg {
@@ -465,6 +460,14 @@
 </head>
 <body>
 
+    <div style="display:none;">
+        ALL OF THE REPO IS OWNED BY ZAWGUETTE ON GITHUB (zawguette246@gmail.com)
+        WRITTEN BY [Nizar Bassem] <[nydrago.18@gmail.com / NyDrago]
+        Copyright (c) 2026. All Rights Reserved.
+        Unauthorized copying, distribution, modification, or publication
+        of this file, in whole or in part, is strictly prohibited.
+    </div>
+
     <img src="images/chiyo.png" id="chiyo-flyer" alt="">
 
     <div id="site-overlay">
@@ -543,12 +546,6 @@
         const statusBubble = document.getElementById('statusBubble');
         const infoTip = document.getElementById('infoTip');
         const chiyo = document.getElementById('chiyo-flyer');
-
-        let count = 0;
-        let player;
-        let isMuted = false;
-        let bubbleTimeout;
-        let infoTipTimeout;
 
         function flyChiyo() {
             chiyo.style.transition = 'none';
