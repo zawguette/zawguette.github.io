@@ -266,8 +266,6 @@
 
         .sakaki-status-bubble {
             position: absolute;
-            bottom: 82px;
-            left: 195px;
             background-color: #ffffff;
             border: 3px solid #1a1a1a;
             border-radius: 8px;
@@ -281,12 +279,29 @@
             pointer-events: none;
             opacity: 0;
             transform: scale(0.9);
-            transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), bottom 0.3s ease, left 0.3s ease, top 0.3s ease, right 0.3s ease;
         }
 
         .sakaki-status-bubble.pop-in {
             opacity: 1;
             transform: scale(1);
+        }
+
+        /* Default position next to Sakaki */
+        .sakaki-status-bubble[data-target="sakaki"] {
+            bottom: 82px;
+            left: 195px;
+        }
+
+        /* Calculated position centered below the main info card */
+        .sakaki-status-bubble[data-target="info"] {
+            top: calc(5vh + clamp(4rem, 12vw, 8rem)*0.8 + 50px + 120px); 
+            left: 50%;
+            transform: translate(-50%, scale(0.9));
+        }
+        
+        .sakaki-status-bubble[data-target="info"].pop-in {
+            transform: translate(-50%, 1) scale(1);
         }
 
         .contact-card {
@@ -358,7 +373,7 @@
                 &lt;-- click the sakaki to mute/unmute!
             </div>
 
-            <div class="sakaki-status-bubble" id="statusBubble"></div>
+            <div class="sakaki-status-bubble" id="statusBubble" data-target="sakaki"></div>
         </section>
 
         <section id="contactPage" class="page-view">
@@ -386,6 +401,8 @@
         let player;
         let isMuted = false;
         let bubbleTimeout;
+        let infoTipTimeout;
+        let siteUnlocked = false;
 
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -410,6 +427,7 @@
 
         overlay.addEventListener('click', () => {
             overlay.classList.add('hidden');
+            siteUnlocked = true;
             
             if (player && typeof player.playVideo === 'function') {
                 player.playVideo();
@@ -420,20 +438,29 @@
             setTimeout(() => {
                 muteTip.classList.add('fade-out');
             }, 5200);
+
+            infoTipTimeout = setTimeout(() => {
+                if (homePage.classList.contains('active')) {
+                    showStatusBubble("<-- you should really try clicking that box if you havent already..", 0, "info");
+                }
+            }, 10000);
         });
 
-        function showStatusBubble(text, duration) {
+        function showStatusBubble(text, duration, target = "sakaki") {
             clearTimeout(bubbleTimeout);
             statusBubble.classList.remove('pop-in');
             
-            muteTip.style.opacity = '0';
+            if (target === "sakaki") {
+                muteTip.style.opacity = '0';
+            }
             
+            statusBubble.setAttribute('data-target', target);
             statusBubble.textContent = text;
             
             void statusBubble.offsetWidth; 
             statusBubble.classList.add('pop-in');
 
-            if (duration) {
+            if (duration > 0) {
                 bubbleTimeout = setTimeout(() => {
                     statusBubble.classList.remove('pop-in');
                 }, duration);
@@ -444,24 +471,30 @@
             e.stopPropagation();
             if (!player || typeof player.isMuted !== 'function') return;
 
+            clearTimeout(infoTipTimeout);
+
             if (isMuted) {
                 player.unMute();
                 player.playVideo();
                 isMuted = false;
                 musicToggleBtn.style.opacity = "1";
                 sakakiSpinner.classList.remove('paused');
-                showStatusBubble("thank you..", 2000);
+                showStatusBubble("thank you..", 2000, "sakaki");
             } else {
                 player.mute();
                 isMuted = true;
                 musicToggleBtn.style.opacity = "0.6";
                 sakakiSpinner.classList.add('paused');
-                showStatusBubble("Hey!", 1200);
+                showStatusBubble("Hey!", 1200, "sakaki");
             }
         });
 
         infoBtn.addEventListener('click', () => {
             count++;
+            clearTimeout(infoTipTimeout);
+            if (statusBubble.getAttribute('data-target') === 'info') {
+                statusBubble.classList.remove('pop-in');
+            }
             alert('You clicked the info button ' + count + ' times!');
         });
 
@@ -472,6 +505,7 @@
                 toggleBtn.textContent = 'Home';
                 muteTip.style.display = 'none';
                 statusBubble.style.display = 'none';
+                clearTimeout(infoTipTimeout);
             } else {
                 contactPage.classList.remove('active');
                 homePage.classList.add('active');
