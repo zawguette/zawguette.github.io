@@ -125,10 +125,6 @@
             background-color: #333333;
         }
 
-        .cycle-nav-btn:active {
-            transform: translateY(1px);
-        }
-
         .page-wrapper {
             flex-grow: 1;
             position: relative;
@@ -170,7 +166,6 @@
             margin-bottom: 50px;
             text-align: center;
             user-select: none;
-            opacity: 1;
             margin-left: 25px;
         }
 
@@ -191,13 +186,8 @@
             color: #f0f2f5;
             -webkit-text-stroke: 1px #444444;
             text-stroke: 1px #444444;
-            overflow: hidden;
             background: transparent;
-            transition: box-shadow 0.2s;
-        }
-
-        .info-card:hover {
-            box-shadow: 8px 8px 0px #1a1a1a;
+            z-index: 20;
         }
 
         .card-blur-bg {
@@ -208,16 +198,7 @@
             height: 100%;
             background: rgba(234, 131, 56, 0.35);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             z-index: -1;
-            opacity: 0;
-            transition: opacity 0.6s ease-out;
-            transition-delay: 0.1s;
-        }
-
-        .page-view.active .card-blur-bg {
-            opacity: 1;
-            transition-delay: 0.1s;
         }
 
         .spinning-container {
@@ -233,18 +214,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 15;
-            overflow: hidden;
-            background: transparent;
+            z-index: 20;
             cursor: pointer;
         }
 
         .spinning-image-wrapper {
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             animation: continuousSpin 8s linear infinite;
         }
 
@@ -263,215 +239,22 @@
             to { transform: rotate(360deg); }
         }
 
-        .mute-tip-box {
+        .mute-tip-box, .sakaki-status-bubble, .info-tip-box {
             position: absolute;
-            bottom: 82px;
-            left: 195px;
             background-color: #ffffff;
             border: 3px solid #1a1a1a;
             border-radius: 8px;
             padding: 10px 20px;
             box-shadow: 4px 4px 0px #1a1a1a;
-            font-size: 1rem;
             font-weight: 700;
-            color: #1a1a1a;
-            white-space: nowrap;
-            z-index: 15;
             pointer-events: none;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            z-index: 30;
         }
-
-        .mute-tip-box.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .mute-tip-box.fade-out {
-            opacity: 0;
-            transform: translateX(-10px);
-        }
-
-        .sakaki-status-bubble {
-            position: absolute;
-            bottom: 82px;
-            left: 195px;
-            background-color: #ffffff;
-            border: 3px solid #1a1a1a;
-            border-radius: 8px;
-            padding: 10px 20px;
-            box-shadow: 4px 4px 0px #1a1a1a;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            white-space: nowrap;
-            z-index: 16;
-            pointer-events: none;
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .sakaki-status-bubble.pop-in {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .info-tip-box {
-            position: absolute;
-            top: calc(5vh + clamp(4rem, 12vw, 8rem) * 0.8 + 15px);
-            left: calc(50% + 210px);
-            background-color: #ffffff;
-            border: 3px solid #1a1a1a;
-            border-radius: 8px;
-            padding: 10px 20px;
-            box-shadow: 4px 4px 0px #1a1a1a;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            white-space: nowrap;
-            z-index: 25;
-            pointer-events: none;
-            opacity: 0;
-            transform: translate(15px, -15px) rotate(-45deg);
-            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .info-tip-box.pop-in {
-            opacity: 1;
-            transform: translate(0, 0) rotate(-45deg);
-        }
-
-        .contact-layout {
-            display: flex;
-            width: 95%;
-            max-width: 1200px;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-            margin-bottom: auto;
-            gap: 80px;
-        }
-
-        .portrait-container {
-            position: relative;
-            width: 320px;
-            height: 540px;
-            border: 3px solid #1a1a1a;
-            border-radius: 16px;
-            box-shadow: 8px 8px 0px #1a1a1a;
-            overflow: hidden;
-            background-color: rgba(34, 34, 34, 0.9);
-            margin-right: auto;
-            margin-left: -40px;
-            margin-top: -30px;
-        }
-
-        .portrait-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.9;
-        }
-
-        .sideways-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            user-select: none;
-        }
-
-        .sideways-text {
-            font-size: 11rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.25);
-            transform: rotate(-90deg);
-            white-space: nowrap;
-            letter-spacing: 2rem;
-            text-transform: uppercase;
-            transform-origin: center;
-            padding-left: 2rem;
-        }
-
-        .contact-card {
-            position: relative;
-            border: 3px solid #1a1a1a;
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: 8px 8px 0px #1a1a1a;
-            text-align: center;
-            width: 550px;
-            overflow: hidden;
-            background: transparent;
-            margin-left: auto;
-        }
-
-        .redirect-buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-        }
-
-        .redirect-btn {
-            display: block;
-            width: 100%;
-            padding: 18px;
-            background-color: rgba(26, 26, 26, 0.65);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            color: #ffffff;
-            border: 2px solid #ffffff;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            text-decoration: none;
-            letter-spacing: 1px;
-            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-            transition: all 0.2s ease;
-            text-align: center;
-            min-height: 60px;
-        }
-
-        .redirect-btn:hover {
-            background-color: rgba(240, 242, 245, 0.85);
-            color: #1a1a1a;
-            border-color: #1a1a1a;
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px #1a1a1a;
-        }
-
-        .redirect-btn:active {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px #1a1a1a;
-        }
-
-        #yt-player {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
-        }
+        
+        #yt-player { display: none; }
     </style>
 </head>
 <body>
-
-    <div style="display:none;">
-        ALL OF THE REPO IS OWNED BY ZAWGUETTE ON GITHUB (zawguette246@gmail.com)
-        WRITTEN BY [Nizar Bassem] <[nydrago.18@gmail.com / NyDrago]
-        Copyright (c) 2026. All Rights Reserved.
-        Unauthorized copying, distribution, modification, or publication
-        of this file, in whole or in part, is strictly prohibited.
-    </div>
 
     <img src="images/chiyo.png" id="chiyo-flyer" alt="">
 
@@ -480,14 +263,11 @@
         <div class="overlay-warning">this site does not work on mobile/smallscreens</div>
     </div>
 
-    <div id="yt-player"></div>
-
     <header>
         <button id="togglePageBtn" class="cycle-nav-btn">Contact</button>
     </header>
 
     <main class="page-wrapper">
-
         <section id="homePage" class="page-view active">
             <h1 class="jeb-logo">Jeb</h1>
             <div class="info-card" id="infoBtn">
@@ -498,178 +278,39 @@
             <div class="spinning-container" id="musicToggleBtn">
                 <div class="card-blur-bg"></div>
                 <div class="spinning-image-wrapper" id="sakakiSpinner">
-                    <img src="images/sakaki.png" alt="Sakaki" class="spinning-image" id="sakakiImg" onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
-                    <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg);">🌀 Sakaki PNG</span>
+                    <img src="images/sakaki.png" alt="Sakaki" class="spinning-image">
                 </div>
-            </div>
-
-            <div class="mute-tip-box" id="muteTip">
-                &lt;-- click the sakaki to mute/unmute!
-            </div>
-
-            <div class="sakaki-status-bubble" id="statusBubble"></div>
-
-            <div class="info-tip-box" id="infoTip">
-                &lt;-- you should really try clicking that box if you havent already..
             </div>
         </section>
 
         <section id="contactPage" class="page-view">
-            <div class="contact-layout">
-                <div class="portrait-container">
-                    <img src="/images/mango.png" alt="Portrait" class="portrait-img" onerror="this.style.opacity='0.1';">
-                    <div class="sideways-overlay">
-                        <div class="sideways-text">JEB</div>
-                    </div>
-                </div>
-
-                <div class="contact-card">
-                    <div class="card-blur-bg"></div>
-                    
-                    <div class="redirect-buttons-container">
-                        <a href="https://www.roblox.com/users/2623127828/profile" target="_blank" class="redirect-btn">Roblox: @1gotB_nned</a>
-                        <a href="https://www.youtube.com/@zawguettey" target="_blank" class="redirect-btn">Youtube: @zawguettey</a>
-                        <a href="https://www.tiktok.com/@zawguettey" target="_blank" class="redirect-btn">Tiktok: @zawguettey</a>
-                        <a href="https://discord.com" target="_blank" class="redirect-btn">Discord: @zawguette</a>
-                        <a href="https://mail.google.com" target="_blank" class="redirect-btn">email: zawguette246@gmail.com</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+            </section>
     </main>
+
+    <div style="position: fixed; bottom: 0; font-size: 8px; opacity: 0.5;">
+        ALL OF THE REPO IS OWNED BY ZAWGUETTE ON GITHUB (zawguette246@gmail.com)
+        WRITTEN BY [Nizar Bassem] <[nydrago.18@gmail.com / NyDrago]
+        Copyright (c) 2026. All Rights Reserved.
+    </div>
 
     <script>
         const overlay = document.getElementById('site-overlay');
-        const toggleBtn = document.getElementById('togglePageBtn');
-        const homePage = document.getElementById('homePage');
-        const contactPage = document.getElementById('contactPage');
         const infoBtn = document.getElementById('infoBtn');
         const musicToggleBtn = document.getElementById('musicToggleBtn');
         const sakakiSpinner = document.getElementById('sakakiSpinner');
-        const muteTip = document.getElementById('muteTip');
-        const statusBubble = document.getElementById('statusBubble');
-        const infoTip = document.getElementById('infoTip');
-        const chiyo = document.getElementById('chiyo-flyer');
-
-        function flyChiyo() {
-            chiyo.style.transition = 'none';
-            chiyo.style.right = '-200px';
-            chiyo.style.top = Math.random() * (window.innerHeight - 150) + 'px';
-            
-            setTimeout(() => {
-                chiyo.style.transition = 'transform 10s linear';
-                chiyo.style.transform = 'translateX(-' + (window.innerWidth + 300) + 'px)';
-            }, 50);
-        }
-
-        setInterval(flyChiyo, 10000);
-
-        const tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('yt-player', {
-                height: '1',
-                width: '1',
-                videoId: '_Y0Td1NYvNs',
-                playerVars: {
-                    'autoplay': 1,
-                    'loop': 1,
-                    'playlist': '_Y0Td1NYvNs',
-                    'controls': 0,
-                    'showinfo': 0,
-                    'modestbranding': 1
-                }
-            });
-        }
+        let count = 0;
 
         overlay.addEventListener('click', () => {
             overlay.classList.add('hidden');
-            
-            if (player && typeof player.playVideo === 'function') {
-                player.playVideo();
-            }
-
-            muteTip.classList.add('visible');
-
-            setTimeout(() => {
-                muteTip.classList.add('fade-out');
-            }, 5200);
-
-            infoTipTimeout = setTimeout(() => {
-                if (homePage.classList.contains('active')) {
-                    infoTip.classList.add('pop-in');
-                    
-                    setTimeout(() => {
-                        infoTip.classList.remove('pop-in');
-                    }, 4200);
-                }
-            }, 5670);
-        });
-
-        function showStatusBubble(text, duration) {
-            clearTimeout(bubbleTimeout);
-            statusBubble.classList.remove('pop-in');
-            
-            muteTip.style.opacity = '0';
-            statusBubble.textContent = text;
-            
-            void statusBubble.offsetWidth; 
-            statusBubble.classList.add('pop-in');
-
-            if (duration > 0) {
-                bubbleTimeout = setTimeout(() => {
-                    statusBubble.classList.remove('pop-in');
-                }, duration);
-            }
-        }
-
-        musicToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (!player || typeof player.isMuted !== 'function') return;
-
-            if (isMuted) {
-                player.unMute();
-                player.playVideo();
-                isMuted = false;
-                musicToggleBtn.style.opacity = "1";
-                sakakiSpinner.classList.remove('paused');
-                showStatusBubble("thank you..", 2000);
-            } else {
-                player.mute();
-                isMuted = true;
-                musicToggleBtn.style.opacity = "0.6";
-                sakakiSpinner.classList.add('paused');
-                showStatusBubble("Hey!", 1200);
-            }
         });
 
         infoBtn.addEventListener('click', () => {
             count++;
-            clearTimeout(infoTipTimeout);
-            infoTip.classList.remove('pop-in');
             alert('You clicked the info button ' + count + ' times!');
         });
 
-        toggleBtn.addEventListener('click', () => {
-            if (homePage.classList.contains('active')) {
-                homePage.classList.remove('active');
-                contactPage.classList.add('active');
-                toggleBtn.textContent = 'Home';
-                muteTip.style.display = 'none';
-                statusBubble.style.display = 'none';
-                infoTip.style.display = 'none';
-            } else {
-                contactPage.classList.remove('active');
-                homePage.classList.add('active');
-                toggleBtn.textContent = 'Contact';
-                muteTip.style.display = 'block';
-                statusBubble.style.display = 'block';
-                infoTip.style.display = 'block';
-            }
+        musicToggleBtn.addEventListener('click', (e) => {
+            sakakiSpinner.classList.toggle('paused');
         });
     </script>
 </body>
