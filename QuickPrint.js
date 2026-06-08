@@ -1,0 +1,9 @@
+console.log("© 
+ * PROPERTY OF [jesus] - (https://zawguette.github.io)
+ * Copyright (c) 2026. All Rights Reserved.
+ * Unauthorized copying, distribution, modification, or publication 
+ * of this file, in whole or in part, is strictly prohibited.
+ * Written by [Nizar Bassem] <[nydrago.18@gmail.com / NyDrago]>
+ ");
+
+console.log("curious arent you? you should really go to the site nydrago.github.io im the one who made this site")
