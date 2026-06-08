@@ -219,6 +219,10 @@
             animation: continuousSpin 8s linear infinite;
         }
 
+        .spinning-image-wrapper.paused {
+            animation-play-state: paused;
+        }
+
         .spinning-image {
             width: 100%;
             height: 100%;
@@ -258,6 +262,31 @@
         .mute-tip-box.fade-out {
             opacity: 0;
             transform: translateX(-10px);
+        }
+
+        .sakaki-status-bubble {
+            position: absolute;
+            bottom: 82px;
+            left: 195px;
+            background-color: #ffffff;
+            border: 3px solid #1a1a1a;
+            border-radius: 8px;
+            padding: 10px 20px;
+            box-shadow: 4px 4px 0px #1a1a1a;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            white-space: nowrap;
+            z-index: 16;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .sakaki-status-bubble.pop-in {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .contact-card {
@@ -319,7 +348,7 @@
 
             <div class="spinning-container" id="musicToggleBtn">
                 <div class="card-blur-bg"></div>
-                <div class="spinning-image-wrapper">
+                <div class="spinning-image-wrapper" id="sakakiSpinner">
                     <img src="images/sakaki.png" alt="Sakaki" class="spinning-image" id="sakakiImg" onerror="this.style.display='none'; document.getElementById('fallback-text').style.display='block';">
                     <span id="fallback-text" style="display:none; font-weight:bold; font-size:12px; text-align:center; transform: rotate(-45deg);">🌀 Sakaki PNG</span>
                 </div>
@@ -328,6 +357,8 @@
             <div class="mute-tip-box" id="muteTip">
                 &lt;-- click the sakaki to mute/unmute!
             </div>
+
+            <div class="sakaki-status-bubble" id="statusBubble"></div>
         </section>
 
         <section id="contactPage" class="page-view">
@@ -347,11 +378,14 @@
         const contactPage = document.getElementById('contactPage');
         const infoBtn = document.getElementById('infoBtn');
         const musicToggleBtn = document.getElementById('musicToggleBtn');
+        const sakakiSpinner = document.getElementById('sakakiSpinner');
         const muteTip = document.getElementById('muteTip');
+        const statusBubble = document.getElementById('statusBubble');
 
         let count = 0;
         let player;
         let isMuted = false;
+        let bubbleTimeout;
 
         const tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
@@ -385,8 +419,26 @@
 
             setTimeout(() => {
                 muteTip.classList.add('fade-out');
-            }, 8670);
+            }, 5200);
         });
+
+        function showStatusBubble(text, duration) {
+            clearTimeout(bubbleTimeout);
+            statusBubble.classList.remove('pop-in');
+            
+            muteTip.style.opacity = '0';
+            
+            statusBubble.textContent = text;
+            
+            void statusBubble.offsetWidth; 
+            statusBubble.classList.add('pop-in');
+
+            if (duration) {
+                bubbleTimeout = setTimeout(() => {
+                    statusBubble.classList.remove('pop-in');
+                }, duration);
+            }
+        }
 
         musicToggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -397,10 +449,14 @@
                 player.playVideo();
                 isMuted = false;
                 musicToggleBtn.style.opacity = "1";
+                sakakiSpinner.classList.remove('paused');
+                showStatusBubble("thank you..", 2000);
             } else {
                 player.mute();
                 isMuted = true;
                 musicToggleBtn.style.opacity = "0.6";
+                sakakiSpinner.classList.add('paused');
+                showStatusBubble("Hey!", 1200);
             }
         });
 
@@ -415,11 +471,13 @@
                 contactPage.classList.add('active');
                 toggleBtn.textContent = 'Home';
                 muteTip.style.display = 'none';
+                statusBubble.style.display = 'none';
             } else {
                 contactPage.classList.remove('active');
                 homePage.classList.add('active');
                 toggleBtn.textContent = 'Contact';
                 muteTip.style.display = 'block';
+                statusBubble.style.display = 'block';
             }
         });
     </script>
